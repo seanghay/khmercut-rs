@@ -1,0 +1,11 @@
+[package]
+name = "khmercut-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+crfsuite = "0.3.1"
+regex = "1.10.0"
+
+[profile.release]
+opt-level = 3
