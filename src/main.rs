@@ -1,12 +1,28 @@
-use std::io::Result;
+use clap::Parser;
+use crfsuite::Model;
+use std::io::{stdin, stdout, BufRead, Result, Write};
+
 mod khmercut;
 
-fn main() -> Result<()> {
-    let input_str = "ឃាត់ខ្លួនជនសង្ស័យ០៤នាក់ Hello, world ករណីលួចខ្សែភ្លើង នៅស្រុកព្រៃនប់។".to_string();
-    for token in khmercut::tokenize(&input_str) {
-        print!("{}|", token);
-    }
+#[derive(Parser, Debug)]
+#[command(author = "Seanghay Yath", version, about = "Fast Khmer word segmentation tool", long_about = None)]
+struct Args {
+    #[arg(short, long, default_value = " ")]
+    delimiter: String,
+}
 
-    print!("\n");
-    return Ok(());
+fn main() -> Result<()> {
+    let args = Args::parse();
+    let model = Model::from_file("crf_ner_10000.crfsuite").unwrap();
+    for line in stdin().lock().lines() {
+        let input_str = line.unwrap();
+        stdout()
+            .write_all(
+                khmercut::tokenize(&model, &input_str)
+                    .join(&args.delimiter)
+                    .as_bytes(),
+            )
+            .unwrap();
+    }
+    Ok(())
 }

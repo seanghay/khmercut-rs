@@ -13,7 +13,8 @@ for token in khmercut::tokenize(&input_str) {
 ```
 
 Run
- 
+
 ```shell
 cargo run
 ```
+

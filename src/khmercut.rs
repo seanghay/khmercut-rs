@@ -10,6 +10,7 @@ pub fn text_tagger(input_str: &String) -> Vec<(&str, String)> {
         r"([\u1780-\u17d3]+)|([\u17d4-\u17dd]+)|([\u17e0-\u17e9]+)|(\s+)|([^\u1780-\u17ff\s]+)",
     )
     .unwrap();
+
     let mut outputs = vec![];
     for capture in characters_regex.captures_iter(&input_str) {
         let (data_type, text) = capture
@@ -44,6 +45,7 @@ pub fn text_tagger(input_str: &String) -> Vec<(&str, String)> {
 pub fn create_features(kccs: &Vec<(&str, String)>) -> Vec<Vec<Attribute>> {
     let mut chunks: Vec<Vec<Attribute>> = vec![];
     let size = kccs.len();
+
     for (i, el) in kccs.iter().enumerate() {
         // initial feature
         let mut items = vec![
@@ -109,7 +111,7 @@ pub fn create_features(kccs: &Vec<(&str, String)>) -> Vec<Vec<Attribute>> {
             ));
         }
 
-        if i < size - 1 {
+        if size >= 1 && i < size - 1 {
             items.push(Attribute::new(format!("kcc[+1]:{}", kccs[i + 1].0), 1.0));
             items.push(Attribute::new(format!("kcc[+1]t:{}", kccs[i + 1].1), 1.0));
             items.push(Attribute::new(
@@ -122,7 +124,7 @@ pub fn create_features(kccs: &Vec<(&str, String)>) -> Vec<Vec<Attribute>> {
             ));
         }
 
-        if i < size - 2 {
+        if size >= 2 && i < size - 2 {
             items.push(Attribute::new(format!("kcc[+2]:{}", kccs[i + 2].0), 1.0));
             items.push(Attribute::new(format!("kcc[+2]t:{}", kccs[i + 2].1), 1.0));
             items.push(Attribute::new(
@@ -139,7 +141,7 @@ pub fn create_features(kccs: &Vec<(&str, String)>) -> Vec<Vec<Attribute>> {
             ));
         }
 
-        if i < size - 3 {
+        if size >= 3 && i < size - 3 {
             items.push(Attribute::new(format!("kcc[+3]:{}", kccs[i + 3].0), 1.0));
             items.push(Attribute::new(format!("kcc[+3]t:{}", kccs[i + 3].1), 1.0));
             items.push(Attribute::new(
@@ -167,7 +169,7 @@ pub fn create_features(kccs: &Vec<(&str, String)>) -> Vec<Vec<Attribute>> {
             ));
         }
 
-        if i == size - 1 {
+        if size >= 1 && i == size - 1 {
             items.push(Attribute::new("EOS", 1.0));
         }
 
@@ -177,10 +179,10 @@ pub fn create_features(kccs: &Vec<(&str, String)>) -> Vec<Vec<Attribute>> {
     return chunks;
 }
 
-pub fn tokenize(input_str: &String) -> Vec<String> {
-    let graphemes = text_tagger(&input_str);
+pub fn tokenize(model: &Model, input_str: &String) -> Vec<String> {
+    let normalized_text = input_str.replace("\u{200b}", "");
+    let graphemes = text_tagger(&normalized_text);
     let features = create_features(&graphemes);
-    let model = Model::from_file("crf_ner_10000.crfsuite").unwrap();
     let mut tagger = model.tagger().unwrap();
     let results: Vec<String> = tagger.tag(&features).unwrap();
     let mut tokens = vec![];
