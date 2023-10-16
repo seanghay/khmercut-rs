@@ -4,6 +4,8 @@ use std::io::{stdin, stdout, BufRead, Result, Write};
 
 mod khmercut;
 
+static MODEL_FILE: &'static [u8] = std::include_bytes!("crf_ner_10000.crfsuite");
+
 #[derive(Parser, Debug)]
 #[command(author = "Seanghay Yath", version, about = "Fast Khmer word segmentation tool", long_about = None)]
 struct Args {
@@ -13,7 +15,7 @@ struct Args {
 
 fn main() -> Result<()> {
     let args = Args::parse();
-    let model = Model::from_file("crf_ner_10000.crfsuite").unwrap();
+    let model = Model::from_memory(MODEL_FILE).unwrap();
     for line in stdin().lock().lines() {
         let input_str = line.unwrap();
         stdout()
