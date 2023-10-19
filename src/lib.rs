@@ -1,4 +1,4 @@
-use crfsuite::{Attribute, Model};
+use crfs::{Attribute, Model};
 use regex::Regex;
 use std::vec;
 
@@ -184,12 +184,14 @@ pub fn tokenize(model: &Model, input_str: &String) -> Vec<String> {
     let graphemes = text_tagger(&normalized_text);
     let features = create_features(&graphemes);
     let mut tagger = model.tagger().unwrap();
-    let results: Vec<String> = tagger.tag(&features).unwrap();
+    let results: Vec<&str> = tagger.tag(&features).unwrap();
     let mut tokens = vec![];
 
+    
     for (i, y) in results.iter().enumerate() {
         let (c, _) = graphemes.get(i).unwrap();
-        if y == "1" || i == 0 {
+        let flag = y.parse::<i8>().unwrap();
+        if flag == 1 || i == 0 {
             tokens.push(c.to_string());
             continue;
         }

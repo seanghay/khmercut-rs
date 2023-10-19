@@ -1,8 +1,7 @@
 use clap::Parser;
-use crfsuite::Model;
+use crfs::Model;
 use std::io::{stdin, stdout, BufRead, Result, Write};
-
-mod khmercut;
+use khmercut;
 
 static MODEL_FILE: &'static [u8] = std::include_bytes!("crf_ner_10000.crfsuite");
 
@@ -15,7 +14,7 @@ struct Args {
 
 fn main() -> Result<()> {
     let args = Args::parse();
-    let model = Model::from_memory(MODEL_FILE).unwrap();
+    let model = Model::new(MODEL_FILE).unwrap();
     for line in stdin().lock().lines() {
         let input_str = line.unwrap();
         stdout()
