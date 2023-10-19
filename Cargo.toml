@@ -6,6 +6,13 @@ license = "MIT"
 description = "A blazingly fast Khmer word segmentation tool written in Rust."
 homepage = "https://github.com/seanghay/khmercut-rs"
 repository = "https://github.com/seanghay/khmercut-rs"
+include = [
+	"**/*.rs",
+	"Cargo.toml",
+	"**/*.crfsuite",
+	"README.md",
+	"LICENSE"
+]
 
 [dependencies]
 clap = { version = "4.4.6", features = ["derive"] }
