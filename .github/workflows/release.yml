@@ -30,3 +30,4 @@ jobs:
           EXTRA_FILES: "README.md"
           ARCHIVE_TYPES: ${{ matrix.archive }}
           MINIFY: "yes"
+          TOOLCHAIN_VERSION: stable
