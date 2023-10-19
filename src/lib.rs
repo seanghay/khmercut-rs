@@ -187,7 +187,6 @@ pub fn tokenize(model: &Model, input_str: &String) -> Vec<String> {
     let results: Vec<&str> = tagger.tag(&features).unwrap();
     let mut tokens = vec![];
 
-    
     for (i, y) in results.iter().enumerate() {
         let (c, _) = graphemes.get(i).unwrap();
         let flag = y.parse::<i8>().unwrap();

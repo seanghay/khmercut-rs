@@ -1,7 +1,7 @@
 use clap::Parser;
 use crfs::Model;
-use std::io::{stdin, stdout, BufRead, Result, Write};
 use khmercut;
+use std::io::{stdin, stdout, BufRead, Result, Write};
 
 static MODEL_FILE: &'static [u8] = std::include_bytes!("crf_ner_10000.crfsuite");
 
