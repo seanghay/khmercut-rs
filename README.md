@@ -1,6 +1,6 @@
 ## khmercut.rs
 
-A Blazingly Fast Khmer Word Segmentation Tool written in Rust. (WIP)
+A Blazingly Fast Khmer Word Segmentation Tool written in Rust.
 
 ```rust
 let input_str = "ឃាត់ខ្លួនជនសង្ស័យ០៤នាក់ Hello, world ករណីលួចខ្សែភ្លើង នៅស្រុកព្រៃនប់។".to_string();
