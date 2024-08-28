@@ -111,9 +111,9 @@ jobs:
             cd -
 
       - name: Publish release artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-            name: khmercut-${{ matrix.platform.os_name }}
+            name: khmercut-${{ matrix.platform.release_for }}
             path: "khmercut-*"
 
       - name: Generate SHA-256
