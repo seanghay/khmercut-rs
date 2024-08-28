@@ -9,8 +9,6 @@ on:
 
   release:
     types: [created]
-  pull_request:
-    types: [opened, synchronize]
 
 jobs:
   release:
@@ -111,21 +109,15 @@ jobs:
             tar czvf ../../../${{ matrix.platform.name }} ${{ matrix.platform.bin }}
             fi
             cd -
-        if: |
-            matrix.toolchain == 'stable' && startsWith( github.ref, 'refs/tags' )
 
       - name: Publish release artifacts
         uses: actions/upload-artifact@v3
         with:
             name: khmercut-${{ matrix.platform.os_name }}
             path: "khmercut-*"
-        if: matrix.toolchain == 'stable' && github.ref == 'refs/tags'
 
       - name: Generate SHA-256
         run: shasum -a 256 ${{ matrix.platform.name }}
-        if: |
-            matrix.toolchain == 'stable' &&
-            matrix.platform.os == 'macOS-latest' && startsWith( github.ref, 'refs/tags' )
 
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
@@ -133,4 +125,3 @@ jobs:
             draft: true
             files: "khmercut*"
             body_path: CHANGELOG.md
-        if: matrix.toolchain == 'stable' && startsWith( github.ref, 'refs/tags' )
