@@ -46,3 +46,4 @@ fn main() {
 
 - [VietHoang1512/khmer-nltk/](https://github.com/VietHoang1512/khmer-nltk/) Khmer Natural Language Processing Tookit, Phan Viet Hoang (2020)
 - [seanghay/khmercut](https://github.com/seanghay/khmercut) A (fast) Khmer word segmentation toolkit.
+- [houseabsolute/ubi](https://github.com/houseabsolute/ubi/blob/master/.github/workflows/ci.yml) Build a binary for multiple platforms
