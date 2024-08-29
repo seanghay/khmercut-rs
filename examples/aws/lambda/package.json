@@ -1,0 +1,13 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "author": "Sophy SEM",
+  "license": "ISC",
+  "description": "build khmercut for lambda",
+  "dependencies": {
+    "serverless": "^4.2.4"
+  },
+  "devDependencies": {
+    "serverless-rust": "^0.3.8"
+  }
+}

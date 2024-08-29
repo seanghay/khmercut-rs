@@ -19,7 +19,8 @@ Cargo.lock
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -39,3 +40,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+examples/aws/lambda/layer
+examples/aws/lambda/.serverless
+examples/aws/lambda/node_modules
