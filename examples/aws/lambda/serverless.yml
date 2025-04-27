@@ -1,0 +1,36 @@
+service: khmercut
+frameworkVersion: '4'
+
+configValidationMode: error
+
+provider:
+  name: aws
+  region: ap-southeast-1
+  versionFunctions: false
+  runtime: provided.al2
+  profile: angkor
+  stage: ${opt:stage, 'prod'}
+
+  stackTags:
+    Project: Angkor
+    Stage: ${self:provider.stage}
+    ManagedBy: Serverless
+    Service: ${self:service}
+    Owner: Angkor
+
+  deploymentBucket:
+    name: "sls-assets"
+    maxPreviousDeploymentArtifacts: 2
+
+layers:
+  khmercut:
+    path: layer
+    name: khmercut
+    description: khmercut for AWS Lambda
+    compatibleArchitectures:
+      - arm64
+    licenseInfo: GPLv3
+    retain: false
+
+package:
+  individually: true
