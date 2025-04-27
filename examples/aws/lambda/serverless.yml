@@ -1,12 +1,26 @@
 service: khmercut
 frameworkVersion: '4'
 
+configValidationMode: error
+
 provider:
   name: aws
   region: ap-southeast-1
-  architecture: arm64
   versionFunctions: false
   runtime: provided.al2
+  profile: angkor
+  stage: ${opt:stage, 'prod'}
+
+  stackTags:
+    Project: Angkor
+    Stage: ${self:provider.stage}
+    ManagedBy: Serverless
+    Service: ${self:service}
+    Owner: Angkor
+
+  deploymentBucket:
+    name: "sls-assets"
+    maxPreviousDeploymentArtifacts: 2
 
 layers:
   khmercut:

@@ -15,14 +15,14 @@ extract: download
 	@echo "Extracting artifact..."
 	mkdir -p $(LAYER_DIR)
 	tar -xzf $(ARTIFACT_FILE) -C $(LAYER_DIR)
-	rm $(ARTIFACT_FILE)
 	@echo "Artifact downloaded and extracted to $(LAYER_DIR)"
 
 
 
 deploy: extract
 	@echo "Deploying the service..."
-	npx serverless deploy
+	serverless deploy --verbose
+	rm $(ARTIFACT_FILE)
 
 # Target to clean up
 clean:

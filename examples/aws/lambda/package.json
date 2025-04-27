@@ -8,6 +8,7 @@
     "serverless": "^4.2.4"
   },
   "devDependencies": {
-    "serverless-rust": "^0.3.8"
+    "serverless-rust": "^0.3.8",
+    "serverless-ignore": "^0.2.1"
   }
 }
